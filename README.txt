@@ -3,6 +3,8 @@
   CRANBERRY: Chemical ReAction Network numBERs summaRY
 
 ========================================================
+
+Matlab was used to develop the function used here.
 The function network_numbers returns the values of the following network numbers of a chemical reaction network:
 
      - Species (m)
