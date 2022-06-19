@@ -48,16 +48,15 @@
 %                        the reaction is reversible or not, respectively      %
 %                                                                             %
 % References:                                                                 %
-%   [1] Arceo, C.P.A, Jose, E.C., Lao, A.R., and Mendoza, E.R. (2017).        %
-%          Reactant subspaces and kinetics of chemical reaction networks.     %
-%          Journal of Mathematical Chemistry, 56, 395–422. doi:10.1007/       %
-%          s10910-017-0809-x                                                  %
-%   [2] Soranzo, N. and Altafini, C. (2009). ERNEST: a toolbox for chemical   %
-%          chemical reaction network theory. Bioinformatics, 25(21),          %
-%               2853–2854. doi:10.1093/bioinformatics/btp513                  %
+%    [1] Arceo C, Jose E, Lao A, Mendoza E (2017) Reactant subspaces and      %
+%           kinetics of chemical reaction networks. J Math Chem               %
+%           56(5):395–422. https://doi.org/10.1007/s10910-017-0809-x          %
+%    [2] Soranzo N, Altafini C (2009) ERNEST: a toolbox for chemical reaction %
+%           network theory. Bioinform 25(21):2853–2854.                       %
+%           https://doi.org/10.1093/bioinformatics/btp513                     %
 %                                                                             %
 % Created: 3 June 2022                                                        %
-% Last Modified: 3 June 2022                                                  %
+% Last Modified: 19 June 2022                                                 %
 %                                                                             %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -148,8 +147,7 @@ function [model] = network_numbers(model)
     
     % Get just the unique complexes
     % ind2(i) is the index in Y of the reactant complex in reaction i
-    % ind(i+r) is the index in Y of the product complex in reaction i     
-    [Y, ind, ind2] = unique([reactant_complexes product_complexes]', 'rows');
+    [Y, ~, ind2] = unique([reactant_complexes product_complexes]', 'rows');
     
     % Construct the matrix of complexes
     Y = Y';
@@ -214,10 +212,10 @@ function [model] = network_numbers(model)
     
     % Linkage classes
     % Count number of connected components of an undirected graph
-    complexes_ugraph_cc = conncomp(graph(reacts_to | reacts_to'));
+    linkage_class = conncomp(graph(reacts_to | reacts_to'));
     
     % Count the number of linkage classes
-    l = max(complexes_ugraph_cc);
+    l = max(linkage_class);
     
     
     
@@ -228,16 +226,17 @@ function [model] = network_numbers(model)
     % Check if the network is reversibile
     is_reversible = isequal(reacts_to, reacts_to');
     
-    % Strong linkage classes(?)
+    % Strong linkage classes
+    % Count number of strongly connected components of an directed graph
     if is_reversible
-        complexes_graph_scc = complexes_ugraph_cc;
+        strong_linkage_class = linkage_class;
     else
         % Count number of connected components of a directed graph
-        complexes_graph_scc = conncomp(digraph(reacts_to));
+        strong_linkage_class = conncomp(digraph(reacts_to));
     end
     
     % Count the number of strong linkage classes
-    sl = max(complexes_graph_scc);
+    sl = max(strong_linkage_class);
     
     
     
@@ -253,7 +252,7 @@ function [model] = network_numbers(model)
     for i = 1:sl
         
         % Locate the indexes in Y of the complexes present in strong-linkage class i
-        complexes_i = find(complexes_graph_scc == i);
+        complexes_i = find(strong_linkage_class == i);
         
         % Locate the indexes in Y of the complexes which in some reactions are products of complexes_i
         products_of_complexes_i = find(any(reacts_to(complexes_i, :), 1));
@@ -286,7 +285,7 @@ function [model] = network_numbers(model)
     % Reactant rank
     %
     
-    % Construct the incidence matrix (based on [1])
+    % Construct the incidence matrix
     % We can decompose this into I_a = I_a^+ - I_a^-
     I_a = reacts_in;
     
@@ -317,7 +316,7 @@ function [model] = network_numbers(model)
     % Reactant deficiency
     %
     
-    % Compute the reactant deficiency (based on [1])
+    % Compute the reactant deficiency
     delta_p = n_r - q;
     
     
