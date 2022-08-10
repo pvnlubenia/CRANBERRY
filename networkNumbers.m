@@ -34,7 +34,7 @@
 %           https://doi.org/10.1093/bioinformatics/btp513                   %
 %                                                                           %
 % Created: 3 June 2022                                                      %
-% Last Modified: 18 July 2022                                               %
+% Last Modified: 10 August 2022                                             %
 %                                                                           %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -316,7 +316,7 @@ function [model] = networkNumbers(model)
 
     % Print header
     % Use 'fprintf' instead of 'disp' to interpret '\n' as 'newline'
-    fprintf(['NETWORK NUMBERS - ', model.id '\n\n']);
+    fprintf('Network Numbers - %s\n\n', model.id);
     
     % Display the table
     disp(results);

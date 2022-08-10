@@ -93,6 +93,6 @@ References
 
    [1] Arceo C, Jose E, Lao A, Mendoza E (2016) Reaction networks and kinetics of biochemical systems (supplementary materials). Math Biosci 283:13-29. https://doi.org/10.1016/j.mbs.2016.10.004
 
-   [2] Arceo C, Jose E, Lao A, Mendoza E (2017) Reactant subspaces and kinetics of chemical reaction networks. J Math Chem 56(5):395Ð422. https://doi.org/10.1007/s10910-017-0809-x
+   [2] Arceo C, Jose E, Lao A, Mendoza E (2017) Reactant subspaces and kinetics of chemical reaction networks. J Math Chem 56(5):395-422. https://doi.org/10.1007/s10910-017-0809-x
 
-   [3] Soranzo N, Altafini C (2009) ERNEST: a toolbox for chemical reaction network theory. Bioinform 25(21):2853Ð2854. https://doi.org/10.1093/bioinformatics/btp513
+   [3] Soranzo N, Altafini C (2009) ERNEST: a toolbox for chemical reaction network theory. Bioinform 25(21):2853-2854. https://doi.org/10.1093/bioinformatics/btp513
